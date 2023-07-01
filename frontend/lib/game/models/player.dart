@@ -1,9 +1,11 @@
 import 'package:frontend/game/models/dice.dart';
 
 class Player {
-  late List<Dice> hand;
+  int id;
+  List<Dice> hand;
   late List<int> currentRoll;
-  Player(this.hand);
+
+  Player(this.id, this.hand);
 
   int numDice() => hand.length;
 

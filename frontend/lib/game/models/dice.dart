@@ -1,7 +1,7 @@
 import 'dart:math';
 
 class Dice {
-  late int numSides;
+  int numSides;
 
   late int currentRoll;
 
