@@ -7,6 +7,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:frontend/game/models/bet.dart';
+import 'package:frontend/game/models/dice.dart';
+import 'package:frontend/game/models/player.dart';
 
 import 'package:frontend/main.dart';
 
@@ -26,5 +29,55 @@ void main() {
     // Verify that our counter has incremented.
     expect(find.text('0'), findsNothing);
     expect(find.text('1'), findsOneWidget);
+  });
+
+  test('Bet Class Unit Tests', () {
+    Bet bet = Bet();
+
+    int wildcard = 6;
+    List<int> dice = <int>[1, 2, 2, 3, 4, 5, 6, 6];
+
+    /// Safe bet testcase
+    int betQuant = 1;
+    int betNumber = 2;
+    bet.placeBet(0, betNumber, betQuant);
+    expect(bet.verifyBet(wildcard, dice), 3);
+
+    /// Perfect bet testcase
+    betQuant = 4;
+    bet.placeBet(0, betNumber, betQuant);
+    expect(bet.verifyBet(wildcard, dice), 0);
+
+    /// Incorrect bet testcase
+    betQuant = 5;
+    bet.placeBet(0, betNumber, betQuant);
+    expect(bet.verifyBet(wildcard, dice), -1);
+  });
+
+  test('Dice Class Unit Tests', () {
+    Dice sixSide = Dice();
+    Dice twentySide = Dice(numSides: 20);
+
+    expect(sixSide.numSides, 6);
+    expect(twentySide.numSides, 20);
+
+    expect(twentySide.roll(), twentySide.currentRoll);
+  });
+
+  test('Player Class Unit Tests', () {
+    int numDice = 7;
+    List<Dice> hand = List.filled(numDice, Dice());
+    Player player = Player(0, hand);
+
+    expect(player.numDice(), 7);
+
+    player.discardDice(1);
+    expect(player.numDice(), 6);
+
+    player.discardDice(3);
+    expect(player.numDice(), 3);
+
+    player.discardDice(10);
+    expect(player.numDice(), 0);
   });
 }

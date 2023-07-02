@@ -5,7 +5,7 @@ class Dice {
 
   late int currentRoll;
 
-  Dice(this.numSides);
+  Dice({this.numSides = 6});
 
   int roll() {
     final random = Random();
