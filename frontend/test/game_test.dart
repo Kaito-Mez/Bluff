@@ -13,7 +13,7 @@ import 'package:frontend/game/models/player.dart';
 
 import 'package:frontend/main.dart';
 
-void main() {
+void main() async {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(const MyApp());
@@ -67,8 +67,9 @@ void main() {
   test('Player Class Unit Tests', () {
     int numDice = 7;
     List<Dice> hand = List.filled(numDice, Dice());
-    Player player = Player(0, hand);
+    Player player = Player(0, "test", hand);
 
+    expect(player.currentRoll, List.filled(numDice, -1));
     expect(player.numDice(), 7);
 
     player.discardDice(1);
@@ -76,8 +77,21 @@ void main() {
 
     player.discardDice(3);
     expect(player.numDice(), 3);
+    expect(player.eliminated, false);
 
     player.discardDice(10);
     expect(player.numDice(), 0);
+    expect(player.eliminated, true);
+
+    Player player2 = Player(0, "test",
+        [Dice(currentRoll: 6), Dice(currentRoll: 3), Dice(currentRoll: 4)]);
+
+    expect(player2.currentRoll, List.of([6, 3, 4]));
+
+    player2.addDice(3);
+    expect(player2.currentRoll, List.of([6, 3, 4]));
+    expect(player.numDice(), 6);
   });
+
+  test('Events Unit Test', () {});
 }
