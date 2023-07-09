@@ -3,9 +3,9 @@ import 'dart:math';
 class Dice {
   int numSides;
 
-  late int currentRoll;
+  int currentRoll;
 
-  Dice({this.numSides = 6});
+  Dice({this.numSides = 6, this.currentRoll = -1});
 
   int roll() {
     final random = Random();

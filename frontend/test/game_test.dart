@@ -7,9 +7,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:frontend/game/client.dart';
 import 'package:frontend/game/models/bet.dart';
 import 'package:frontend/game/models/dice.dart';
+import 'package:frontend/game/models/events.dart';
 import 'package:frontend/game/models/player.dart';
+import 'package:frontend/game/models/ruleset.dart';
 
 import 'package:frontend/main.dart';
 
@@ -93,5 +96,13 @@ void main() async {
     expect(player.numDice(), 6);
   });
 
-  test('Events Unit Test', () {});
+  test('Events Unit Test', () {
+    EventsChannel events = EventsChannel();
+    EventsChannel events2 = EventsChannel();
+
+    Client client1 = Client(["player1"], Ruleset(), events);
+    Client client2 = Client(["player32"], Ruleset(), events2);
+
+    events.betEvent.broadcast(BetEventArgs(Bet()));
+  });
 }
