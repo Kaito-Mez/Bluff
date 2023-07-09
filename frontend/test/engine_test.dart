@@ -1,11 +1,3 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:frontend/game/client.dart';
 import 'package:frontend/game/models/bet.dart';
@@ -14,26 +6,7 @@ import 'package:frontend/game/models/events.dart';
 import 'package:frontend/game/models/player.dart';
 import 'package:frontend/game/models/ruleset.dart';
 
-import 'package:frontend/main.dart';
-
 void main() async {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
-
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
-
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
-  });
-
   test('Bet Class Unit Tests', () {
     Bet bet = Bet();
 
@@ -96,13 +69,21 @@ void main() async {
     expect(player2.numDice(), 6);
   });
 
-  test('Events Unit Test', () {
-    EventsChannel events = EventsChannel();
-    EventsChannel events2 = EventsChannel();
+  test('Client Unit Test', () {
+    List<String> playerNames = ["Joe", "Joseph", "Josephine", "Josephanie"];
+    int numsides = 3;
+    int numdice = 43;
+    Ruleset ruleset = Ruleset(numDice: numdice, numSides: numsides);
+    EventsChannel netEvents = EventsChannel();
+    EventsChannel uiEvents = EventsChannel();
 
-    Client client1 = Client(["player1"], Ruleset(), events);
-    Client client2 = Client(["player32"], Ruleset(), events2);
+    Client client = Client(playerNames, ruleset, netEvents, uiEvents: uiEvents);
 
-    events.betEvent.broadcast(BetEventArgs(Bet()));
+    expect(client.players.length, 4);
+    expect(client.players[0].numDice(), 10);
+    expect(client.players[2].id, 2);
+    expect(client.players[1].name, "Joseph");
   });
+
+  test('Client BlackBox', () {});
 }

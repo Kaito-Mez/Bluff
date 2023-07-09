@@ -26,8 +26,6 @@ class Client {
     }
 
     netEvents.betEvent.subscribe((args) => onNetBet(args!));
-
-    netEvents.betEvent.broadcast(BetEventArgs(Bet()));
   }
 
   void setupGame(List<String> playerNames) {
