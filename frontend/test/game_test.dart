@@ -93,7 +93,7 @@ void main() async {
 
     player2.addDice(3);
     expect(player2.currentRoll, List.of([6, 3, 4]));
-    expect(player.numDice(), 6);
+    expect(player2.numDice(), 6);
   });
 
   test('Events Unit Test', () {
