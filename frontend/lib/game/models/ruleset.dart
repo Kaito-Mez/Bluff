@@ -23,6 +23,9 @@ class Ruleset {
   ///If players win in risky ways then they can heal dice
   bool challenges;
 
+  ///Which sides of the dice are wildcards
+  List<int> wildcards;
+
   Ruleset(
       {this.numDice = 30,
       this.numSides = 6,
@@ -31,5 +34,6 @@ class Ruleset {
       this.heal = false,
       this.mysteryDice = false,
       this.guardianAngel = true,
-      this.challenges = false});
+      this.challenges = false,
+      this.wildcards = const <int>[6]});
 }
