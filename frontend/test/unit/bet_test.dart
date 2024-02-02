@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:frontend/game/models/bet.dart';
 
 void main() async {
-  test('Placing a bet reflects data correctly', () {
+  test('Placing a bet should reflect data correctly', () {
     Bet bet = Bet();
 
     int betQuant = 1;
@@ -21,7 +21,7 @@ void main() async {
     List<int> diceRoll = <int>[1, 2, 2, 3, 4, 5, 6, 6];
     Bet bet = Bet();
 
-    test('Bet is under (Caller loses)', () {
+    test('Bet should be under (Caller loses)', () {
       // GIVEN:
       int betQuant = 1;
 
@@ -32,7 +32,7 @@ void main() async {
       expect(bet.verifyBet(wildcard, diceRoll), 3);
     });
 
-    test('Bet is over (Better loses)', () {
+    test('Bet should be over (Better loses)', () {
       // GIVEN:
       int betQuant = 5;
 
@@ -43,7 +43,7 @@ void main() async {
       expect(bet.verifyBet(wildcard, diceRoll), -1);
     });
 
-    test('Bet is perfect (All but Better loses)', () {
+    test('Bet should be perfect (All but Better loses)', () {
       // GIVEN:
       int betQuant = 4;
 

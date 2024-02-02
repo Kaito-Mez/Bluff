@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:frontend/game/models/dice.dart';
 
 void main() async {
-  test('Dice has correct num sides', () {
+  test('Dice should have correct num sides', () {
     Dice sixSide = Dice(6);
     Dice twentySide = Dice(20);
 
