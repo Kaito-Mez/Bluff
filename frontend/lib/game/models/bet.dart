@@ -4,23 +4,26 @@ class Bet {
 
   int playerId;
 
+  /// Object representing the current bet.
   Bet({this.playerId = -1, this.number = -1, this.quantity = -1});
 
+  /// Set the current bet
   void placeBet(int playerId, int number, int quantity) {
     this.playerId = playerId;
     this.number = number;
     this.quantity = quantity;
   }
 
-  /// Return 0 means perfect bet,
+  /// Provided the roll of all dice, checks the result of the bet.
+  /// Return 0 means perfect bet (all non betters lose),
   ///
-  /// Positive number challenger loses dice,
+  /// Positive number challenger loses dice (caller loses),
   ///
-  /// Negative number better loses dice
-  int verifyBet(List<int> wildcards, List<int> dice) {
+  /// Negative number better loses dice (better loses)
+  int verifyBet(List<int> wildcards, List<int> rolls) {
     int count = 0;
 
-    for (int roll in dice) {
+    for (int roll in rolls) {
       if (roll == number || wildcards.contains(roll)) {
         count++;
       }
