@@ -25,7 +25,7 @@ class Player {
 
   void addDice(int numDice, Dice dice) {
     for (int i = 0; i < numDice; i++) {
-      hand.add(Dice(dice.numSides, dice.wildcards));
+      hand.add(Dice(dice.numSides));
     }
   }
 

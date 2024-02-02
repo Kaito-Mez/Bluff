@@ -7,32 +7,11 @@ import 'package:frontend/game/models/player.dart';
 import 'package:frontend/game/models/ruleset.dart';
 
 void main() async {
-  test('Bet Class Unit Tests', () {
-    Bet bet = Bet();
 
-    List<int> wildcard = [6];
-    List<int> dice = <int>[1, 2, 2, 3, 4, 5, 6, 6];
-
-    /// Safe bet testcase
-    int betQuant = 1;
-    int betNumber = 2;
-    bet.placeBet(0, betNumber, betQuant);
-    expect(bet.verifyBet(wildcard, dice), 3);
-
-    /// Perfect bet testcase
-    betQuant = 4;
-    bet.placeBet(0, betNumber, betQuant);
-    expect(bet.verifyBet(wildcard, dice), 0);
-
-    /// Incorrect bet testcase
-    betQuant = 5;
-    bet.placeBet(0, betNumber, betQuant);
-    expect(bet.verifyBet(wildcard, dice), -1);
-  });
 
   test('Dice Class Unit Tests', () {
-    Dice sixSide = Dice(6, [6]);
-    Dice twentySide = Dice(20, [20]);
+    Dice sixSide = Dice(6);
+    Dice twentySide = Dice(20);
 
     expect(sixSide.numSides, 6);
     expect(twentySide.numSides, 20);
@@ -42,7 +21,7 @@ void main() async {
 
   test('Player Class Unit Tests', () {
     int numDice = 7;
-    List<Dice> hand = List.filled(numDice, Dice(6, [6]));
+    List<Dice> hand = List.filled(numDice, Dice(6));
     Player player = Player(0, "test", hand);
 
     expect(player.currentRoll, List.filled(numDice, -1));
@@ -60,14 +39,14 @@ void main() async {
     expect(player.eliminated, true);
 
     Player player2 = Player(0, "test", [
-      Dice(6, [6], currentRoll: 6),
-      Dice(6, [6], currentRoll: 3),
-      Dice(6, [6], currentRoll: 4)
+      Dice(6, currentRoll: 6),
+      Dice(6, currentRoll: 3),
+      Dice(6, currentRoll: 4)
     ]);
 
     expect(player2.currentRoll, List.of([6, 3, 4]));
 
-    player2.addDice(3, Dice(6, [6]));
+    player2.addDice(3, Dice(6));
     expect(player2.currentRoll, List.of([6, 3, 4]));
     expect(player2.numDice(), 6);
   });
