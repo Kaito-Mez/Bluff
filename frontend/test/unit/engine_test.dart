@@ -10,7 +10,7 @@ void main() async {
   test('Bet Class Unit Tests', () {
     Bet bet = Bet();
 
-    int wildcard = 6;
+    List<int> wildcard = [6];
     List<int> dice = <int>[1, 2, 2, 3, 4, 5, 6, 6];
 
     /// Safe bet testcase
@@ -31,8 +31,8 @@ void main() async {
   });
 
   test('Dice Class Unit Tests', () {
-    Dice sixSide = Dice();
-    Dice twentySide = Dice(numSides: 20);
+    Dice sixSide = Dice(6, [6]);
+    Dice twentySide = Dice(20, [20]);
 
     expect(sixSide.numSides, 6);
     expect(twentySide.numSides, 20);
@@ -42,7 +42,7 @@ void main() async {
 
   test('Player Class Unit Tests', () {
     int numDice = 7;
-    List<Dice> hand = List.filled(numDice, Dice());
+    List<Dice> hand = List.filled(numDice, Dice(6, [6]));
     Player player = Player(0, "test", hand);
 
     expect(player.currentRoll, List.filled(numDice, -1));
@@ -59,12 +59,15 @@ void main() async {
     expect(player.numDice(), 0);
     expect(player.eliminated, true);
 
-    Player player2 = Player(0, "test",
-        [Dice(currentRoll: 6), Dice(currentRoll: 3), Dice(currentRoll: 4)]);
+    Player player2 = Player(0, "test", [
+      Dice(6, [6], currentRoll: 6),
+      Dice(6, [6], currentRoll: 3),
+      Dice(6, [6], currentRoll: 4)
+    ]);
 
     expect(player2.currentRoll, List.of([6, 3, 4]));
 
-    player2.addDice(3);
+    player2.addDice(3, Dice(6, [6]));
     expect(player2.currentRoll, List.of([6, 3, 4]));
     expect(player2.numDice(), 6);
   });
@@ -77,13 +80,52 @@ void main() async {
     EventsChannel netEvents = EventsChannel();
     EventsChannel uiEvents = EventsChannel();
 
-    Client client = Client(playerNames, ruleset, netEvents, uiEvents: uiEvents);
+    Client client =
+        Client(3, playerNames, ruleset, netEvents, uiEvents: uiEvents);
 
     expect(client.players.length, 4);
     expect(client.players[0].numDice(), 10);
     expect(client.players[2].id, 2);
     expect(client.players[1].name, "Joseph");
+
+    // Not Players turn
+    Bet bet = Bet(playerId: 1);
+    expect(client.getNextTurn(bet), 2);
+    // Is Players turn
+    bet = Bet(playerId: 2);
+    expect(client.getNextTurn(bet), client.clientID);
+    // Was just players turn
+    bet = Bet(playerId: 3);
+    expect(client.getNextTurn(bet), 0);
   });
 
-  test('Client BlackBox', () {});
+  test('Client BlackBox', () async {
+    int numsides = 3;
+    int numdice = 43;
+    List<String> playerNames = ["Joe", "Joseph", "Josephine", "Josephanie"];
+    Ruleset ruleset = Ruleset(numDice: numdice, numSides: numsides);
+    EventsChannel netEvents = EventsChannel();
+    EventsChannel uiEvents = EventsChannel();
+
+    Client player =
+        Client(0, playerNames, ruleset, netEvents, uiEvents: uiEvents);
+    Client ai1 = Client(1, playerNames, ruleset, netEvents);
+    Client ai2 = Client(2, playerNames, ruleset, netEvents);
+
+    int betQuantity = 1;
+    int betNum = 1;
+    int playerId = 0;
+    Bet bet = Bet(playerId: playerId, number: betNum, quantity: betQuantity);
+
+    uiEvents.betEvent.subscribe((args) {
+      args = args!;
+      expect(args.bet.number, betNum);
+      expect(args.bet.quantity, betQuantity);
+      expect(args.bet.playerId, playerId);
+    });
+
+    netEvents.betEvent.broadcast(BetEventArgs(bet, -1));
+
+    await Future.delayed(const Duration(milliseconds: 500));
+  });
 }
