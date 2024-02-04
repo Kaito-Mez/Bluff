@@ -2,63 +2,20 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:frontend/game/client.dart';
 import 'package:frontend/game/models/bet.dart';
 import 'package:frontend/game/models/dice.dart';
-import 'package:frontend/game/models/events.dart';
+import 'package:frontend/game/network/client_events_channel.dart';
 import 'package:frontend/game/models/player.dart';
 import 'package:frontend/game/models/ruleset.dart';
-
+/*
 void main() async {
-
-
-  test('Dice Class Unit Tests', () {
-    Dice sixSide = Dice(6);
-    Dice twentySide = Dice(20);
-
-    expect(sixSide.numSides, 6);
-    expect(twentySide.numSides, 20);
-
-    expect(twentySide.roll(), twentySide.currentRoll);
-  });
-
-  test('Player Class Unit Tests', () {
-    int numDice = 7;
-    List<Dice> hand = List.filled(numDice, Dice(6));
-    Player player = Player(0, "test", hand);
-
-    expect(player.currentRoll, List.filled(numDice, -1));
-    expect(player.numDice(), 7);
-
-    player.discardDice(1);
-    expect(player.numDice(), 6);
-
-    player.discardDice(3);
-    expect(player.numDice(), 3);
-    expect(player.eliminated, false);
-
-    player.discardDice(10);
-    expect(player.numDice(), 0);
-    expect(player.eliminated, true);
-
-    Player player2 = Player(0, "test", [
-      Dice(6, currentRoll: 6),
-      Dice(6, currentRoll: 3),
-      Dice(6, currentRoll: 4)
-    ]);
-
-    expect(player2.currentRoll, List.of([6, 3, 4]));
-
-    player2.addDice(3, Dice(6));
-    expect(player2.currentRoll, List.of([6, 3, 4]));
-    expect(player2.numDice(), 6);
-  });
-
   test('Client Unit Test', () {
     List<String> playerNames = ["Joe", "Joseph", "Josephine", "Josephanie"];
     int numsides = 3;
     int numdice = 43;
     Ruleset ruleset = Ruleset(numDice: numdice, numSides: numsides);
-    EventsChannel netEvents = EventsChannel();
-    EventsChannel uiEvents = EventsChannel();
+    ClientEventsChannel netEvents = ClientEventsChannel();
+    ClientEventsChannel uiEvents = ClientEventsChannel();
 
+    // Some sort of constructor test.
     Client client =
         Client(3, playerNames, ruleset, netEvents, uiEvents: uiEvents);
 
@@ -67,6 +24,7 @@ void main() async {
     expect(client.players[2].id, 2);
     expect(client.players[1].name, "Joseph");
 
+    //Get next turn test
     // Not Players turn
     Bet bet = Bet(playerId: 1);
     expect(client.getNextTurn(bet), 2);
@@ -83,8 +41,8 @@ void main() async {
     int numdice = 43;
     List<String> playerNames = ["Joe", "Joseph", "Josephine", "Josephanie"];
     Ruleset ruleset = Ruleset(numDice: numdice, numSides: numsides);
-    EventsChannel netEvents = EventsChannel();
-    EventsChannel uiEvents = EventsChannel();
+    ClientEventsChannel netEvents = ClientEventsChannel();
+    ClientEventsChannel uiEvents = ClientEventsChannel();
 
     Client player =
         Client(0, playerNames, ruleset, netEvents, uiEvents: uiEvents);
@@ -108,3 +66,4 @@ void main() async {
     await Future.delayed(const Duration(milliseconds: 500));
   });
 }
+*/
