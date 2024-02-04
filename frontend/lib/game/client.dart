@@ -40,7 +40,7 @@ class Client {
   ///Setup all player objects.
   void setupGame(List<String> playerNames) {
     int numPlayers = playerNames.length;
-    int numDice = ((ruleset.numDice / playerNames.length) - 0.5).round();
+    int numDice = getNumDicePerPlayer(ruleset.numDice, numPlayers);
     int numSides = ruleset.numSides;
 
     players = List.generate(
@@ -52,6 +52,10 @@ class Client {
 
   int getNextTurn(Bet bet) {
     return (bet.playerId + 1) % players.length;
+  }
+
+  int getNumDicePerPlayer(int totalDice, int numPlayers) {
+    return ((totalDice / numPlayers) - 0.5).round();
   }
 
   ///Inbound
