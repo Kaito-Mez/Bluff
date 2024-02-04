@@ -6,7 +6,6 @@ import 'package:frontend/game/models/events/roll_event.dart';
 import 'package:frontend/game/models/events/turn_event.dart';
 
 class ClientEventsChannel {
-  
   /// When a player or ai places a bet
   Event<BetEventArgs> betEvent = Event<BetEventArgs>();
 
@@ -15,6 +14,9 @@ class ClientEventsChannel {
 
   /// When a player or ai reveals their hand after a bluff is called
   Event<RevealEventArgs> revealEvent = Event<RevealEventArgs>();
+
+  /// When a player rolls their dice at the start of the round
+  Event<RollEventArgs> rollEvent = Event<RollEventArgs>();
 
   // When a new turn starts.
   Event<TurnEventArgs> turnEvent = Event<TurnEventArgs>();
