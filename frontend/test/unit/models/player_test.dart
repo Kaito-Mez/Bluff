@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:frontend/game/models/player.dart';
 
-import '../data/dice_test_data.dart';
-import '../data/player_test_data.dart';
+import '../../data/dice_test_data.dart';
+import '../../data/player_test_data.dart';
 
 void main() async {
   test('Rolling dice should set their values', () {
