@@ -1,8 +1,13 @@
 import 'package:frontend/game/models/bet.dart';
 import 'package:frontend/game/models/dice.dart';
-import 'package:frontend/game/models/events.dart';
 import 'package:frontend/game/models/player.dart';
 import 'package:frontend/game/models/ruleset.dart';
+import 'package:frontend/game/models/events/bet_event.dart';
+import 'package:frontend/game/models/events/call_event.dart';
+import 'package:frontend/game/models/events/reveal_event.dart';
+import 'package:frontend/game/models/events/roll_event.dart';
+import 'package:frontend/game/models/events/turn_event.dart';
+import 'package:frontend/game/network/events_channel.dart';
 import 'package:smartlogger/smartlogger.dart';
 
 class Client {
@@ -17,10 +22,12 @@ class Client {
   late Player player;
   late List<Player> players;
 
-  Client(this.clientID, List<String> playerNames, this.ruleset, this.netEvents,
+  ///Client Object. Pass uiEvents channel if this client is the device's player.
+  ///
+  ///There is one client object per player on a device. IE if an AI is running
+  ///on a device that device has one client for the player and one for the ai.
+  Client(this.clientID, this.ruleset, this.netEvents,
       {EventsChannel? uiEvents}) {
-    setupGame(playerNames);
-
     if (uiEvents != null) {
       this.uiEvents = uiEvents;
       isAiClient = false;
@@ -30,6 +37,7 @@ class Client {
     netEvents.betEvent.subscribe((args) => onNetBet(args!));
   }
 
+  ///Setup all player objects.
   void setupGame(List<String> playerNames) {
     int numPlayers = playerNames.length;
     int numDice = ((ruleset.numDice / playerNames.length) - 0.5).round();
@@ -42,6 +50,13 @@ class Client {
     player = players[clientID];
   }
 
+  int getNextTurn(Bet bet) {
+    return (bet.playerId + 1) % players.length;
+  }
+
+  ///Inbound
+
+  ///On receiving a bet event from the net, pass it on to the UI.
   void onNetBet(BetEventArgs args) {
     bet = args.bet;
 
@@ -55,21 +70,21 @@ class Client {
     }
   }
 
+  ///On receiving a bluff call event from the net, pass it on to the net.
+  void onNetCall(CallEventArgs args) {
+    if (!identical(args.sender, this)) {
+      netEvents.revealEvent
+          .broadcast(RevealEventArgs(player.id, player.currentRoll, this));
+    }
+  }
+
+  ///Outbound
+
+  ///On receiving a bet from the UI, pass it on to the net.
   void onLocalBet(BetEventArgs args) {
     bet = args.bet;
     if (identical(args.sender, this)) {
       netEvents.betEvent.broadcast(args);
     }
-  }
-
-  void onNetCall(CallEventArgs args) {
-    if (!identical(args.sender, this)) {
-      netEvents.revealHandEvent
-          .broadcast(RevealHandEventArgs(player.id, player.currentRoll, this));
-    }
-  }
-
-  int getNextTurn(Bet bet) {
-    return (bet.playerId + 1) % players.length;
   }
 }
