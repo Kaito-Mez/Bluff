@@ -5,6 +5,22 @@ import '../../data/dice_test_data.dart';
 import '../../data/player_test_data.dart';
 
 void main() async {
+  test('Setting dice should set new dice', () {
+    int expectedNumDice = 6;
+    List<int> expectedRole = List.of(<int>[-1, -1, -1, -1, -1, -1]);
+    Player player = getPlayer();
+
+    expect(player.numDice(), expectedNumDice);
+    expect(player.currentRoll, expectedRole);
+
+    expectedNumDice = 15;
+    expectedRole = List.filled(expectedNumDice, -1);
+    player.setDice(getDice(15));
+
+    expect(player.numDice(), expectedNumDice);
+    expect(player.currentRoll, expectedRole);
+  });
+
   test('Rolling dice should set their values', () {
     List<int> expectedInitialRole = List.of(<int>[-1, -1, -1, -1, -1, -1]);
     Player player = getPlayer();
