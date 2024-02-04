@@ -1,4 +1,9 @@
-import 'package:frontend/game/models/events.dart';
+import 'package:frontend/game/models/events/bet_event.dart';
+import 'package:frontend/game/models/events/call_event.dart';
+import 'package:frontend/game/models/events/reveal_event.dart';
+import 'package:frontend/game/models/events/roll_event.dart';
+import 'package:frontend/game/models/events/turn_event.dart';
+import 'package:frontend/game/network/events_channel.dart';
 
 enum GameType { local, lan, online }
 
