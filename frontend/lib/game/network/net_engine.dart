@@ -3,13 +3,13 @@ import 'package:frontend/game/models/events/call_event.dart';
 import 'package:frontend/game/models/events/reveal_event.dart';
 import 'package:frontend/game/models/events/roll_event.dart';
 import 'package:frontend/game/models/events/turn_event.dart';
-import 'package:frontend/game/network/events_channel.dart';
+import 'package:frontend/game/network/client_events_channel.dart';
 
 enum GameType { local, lan, online }
 
 class NetEngine {
   GameType gameType;
-  EventsChannel events;
+  ClientEventsChannel events;
 
   /// TODO Add sockets type thing
 

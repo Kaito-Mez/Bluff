@@ -7,7 +7,7 @@ import 'package:frontend/game/models/events/call_event.dart';
 import 'package:frontend/game/models/events/reveal_event.dart';
 import 'package:frontend/game/models/events/roll_event.dart';
 import 'package:frontend/game/models/events/turn_event.dart';
-import 'package:frontend/game/network/events_channel.dart';
+import 'package:frontend/game/network/client_events_channel.dart';
 import 'package:smartlogger/smartlogger.dart';
 
 class Client {
@@ -15,8 +15,8 @@ class Client {
   int clientID;
   Ruleset ruleset;
 
-  EventsChannel netEvents;
-  late EventsChannel uiEvents;
+  ClientEventsChannel netEvents;
+  late ClientEventsChannel uiEvents;
 
   late Bet bet;
   late Player player;
@@ -27,7 +27,7 @@ class Client {
   ///There is one client object per player on a device. IE if an AI is running
   ///on a device that device has one client for the player and one for the ai.
   Client(this.clientID, this.ruleset, this.netEvents,
-      {EventsChannel? uiEvents}) {
+      {ClientEventsChannel? uiEvents}) {
     if (uiEvents != null) {
       this.uiEvents = uiEvents;
       isAiClient = false;
