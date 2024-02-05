@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:frontend/game/client.dart';
 
-import '../../resources/client_test_data.dart';
-import '../../resources/models/bet_test_data.dart';
+import '../../../resources/client_test_data.dart';
+import '../../../resources/models/bet_test_data.dart';
 
 void main() async {
   test('Players should be created when game is setup', () {

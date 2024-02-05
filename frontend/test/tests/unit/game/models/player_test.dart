@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:frontend/game/models/player.dart';
 
-import '../../../resources/models/dice_test_data.dart';
-import '../../../resources/models/player_test_data.dart';
+import '../../../../resources/models/dice_test_data.dart';
+import '../../../../resources/models/player_test_data.dart';
 
 void main() async {
   test('Setting dice should set new dice', () {
