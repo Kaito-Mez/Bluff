@@ -1,17 +1,17 @@
 class Bet {
-  int number;
-  int quantity;
+  int targetNumber;
+  int betQuantity;
 
   int playerId;
 
   /// Object representing the current bet.
-  Bet({this.playerId = -1, this.number = -1, this.quantity = -1});
+  Bet({this.playerId = -1, this.targetNumber = -1, this.betQuantity = -1});
 
   /// Set the current bet
-  void placeBet(int playerId, int number, int quantity) {
+  void placeBet(int playerId, int targetNumber, int betQuantity) {
     this.playerId = playerId;
-    this.number = number;
-    this.quantity = quantity;
+    this.targetNumber = targetNumber;
+    this.betQuantity = betQuantity;
   }
 
   /// Provided the roll of all dice, checks the result of the bet.
@@ -24,11 +24,11 @@ class Bet {
     int count = 0;
 
     for (int roll in rolls) {
-      if (roll == number || wildcards.contains(roll)) {
+      if (roll == targetNumber || wildcards.contains(roll)) {
         count++;
       }
     }
 
-    return count - quantity;
+    return count - betQuantity;
   }
 }

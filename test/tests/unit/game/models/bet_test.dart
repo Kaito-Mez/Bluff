@@ -10,8 +10,8 @@ void main() async {
     bet.placeBet(0, betNumber, betQuant);
 
     expect(bet.playerId, 0);
-    expect(bet.quantity, betQuant);
-    expect(bet.number, betNumber);
+    expect(bet.betQuantity, betQuant);
+    expect(bet.targetNumber, betNumber);
   });
 
   group('Verify Bet:', () {
