@@ -4,6 +4,9 @@ class Bet {
 
   int playerId;
 
+  /// Probability that this bet is safe.
+  late double probability;
+
   /// Object representing the current bet.
   Bet({this.playerId = -1, this.targetNumber = -1, this.betQuantity = -1});
 
