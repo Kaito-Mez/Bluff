@@ -16,8 +16,7 @@ double getBetProbability(int numSides, int totalNumDice, Bet bet,
 
   double probPerRole =
       _probOfSuccessfulRole(bet.targetNumber, numSides, wildcards);
-  probability = _calcBetProbability(
-      bet.targetNumber, neededForSuccess, numRolls, probPerRole);
+  probability = _calcBetProbability(neededForSuccess, numRolls, probPerRole);
 
   return probability;
 }
@@ -35,18 +34,19 @@ int _factorial(int n) {
 }
 
 double _calcBetProbability(
-    int targetNumber, int neededForSuccess, int numDice, double probPerRole) {
+    int neededForSuccess, int numDice, double probPerRole) {
   double probability;
   if (neededForSuccess <= 0) {
     probability = 1;
-  } else if (neededForSuccess > numDice) {
-    probability = 0;
   } else {
     probability = 0;
-    for (int rollNum = neededForSuccess; rollNum <= numDice; rollNum++) {
-      probability += _binomialCoefficient(numDice, rollNum) *
-          pow(probPerRole, rollNum) *
-          pow(1 - probPerRole, numDice - rollNum);
+    //Is bet still possible with number of rolls left
+    if (numDice > neededForSuccess) {
+      for (int rollNum = neededForSuccess; rollNum <= numDice; rollNum++) {
+        probability += _binomialCoefficient(numDice, rollNum) *
+            pow(probPerRole, rollNum) *
+            pow(1 - probPerRole, numDice - rollNum);
+      }
     }
   }
 
