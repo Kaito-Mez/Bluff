@@ -28,7 +28,7 @@ void main() async {
       expect(client.getNextTurn(getBet()), expectedNextID);
     });
 
-    test('Should return next players ID', () {
+    test('Should loop back to first player when getting next player', () {
       int currentBetId = 3;
       int expectedNextID = 0;
 
@@ -56,7 +56,7 @@ void main() async {
           expectedDicePerPlayer);
     });
 
-    test('Should give right number when .', () {
+    test('Should give right number no matter the remainder.', () {
       int actualDicePerPlayer;
       int actualTotalDice;
       int numPlayers = 2;
