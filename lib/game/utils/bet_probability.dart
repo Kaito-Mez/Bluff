@@ -16,7 +16,7 @@ double getBetProbability(int numSides, int totalNumDice, Bet bet,
 
   double probPerRole =
       _probOfSuccessfulRole(bet.targetNumber, numSides, wildcards);
-  probability = _calcBetProbability(neededForSuccess, numRolls, probPerRole);
+  probability = _calcBinomialCDF(neededForSuccess, numRolls, probPerRole);
 
   return probability;
 }
@@ -33,22 +33,29 @@ int _factorial(int n) {
   }
 }
 
-double _calcBetProbability(
-    int neededForSuccess, int numDice, double probPerRole) {
+double _calcBinomialCDF(int minForSuccess, int numDice, double probPerRole) {
   double probability;
-  if (neededForSuccess <= 0) {
+  if (minForSuccess <= 0) {
     probability = 1;
   } else {
     probability = 0;
     //Is bet still possible with number of rolls left
-    if (numDice > neededForSuccess) {
-      for (int rollNum = neededForSuccess; rollNum <= numDice; rollNum++) {
-        probability += _binomialCoefficient(numDice, rollNum) *
-            pow(probPerRole, rollNum) *
-            pow(1 - probPerRole, numDice - rollNum);
+    if (numDice > minForSuccess) {
+      //Get prob that num rolled is at least the number required.
+      for (int rollNum = minForSuccess; rollNum <= numDice; rollNum++) {
+        probability += _calcBinomialPDF(rollNum, numDice, probPerRole);
       }
     }
   }
+
+  return probability;
+}
+
+double _calcBinomialPDF(int numForSuccess, int numDice, double probPerRole) {
+  double probability = 0;
+  probability += _binomialCoefficient(numDice, numForSuccess) *
+      pow(probPerRole, numForSuccess) *
+      pow(1 - probPerRole, numDice - numForSuccess);
 
   return probability;
 }
