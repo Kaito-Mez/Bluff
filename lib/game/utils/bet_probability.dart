@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:flutter/foundation.dart';
 import 'package:frontend/game/models/bet.dart';
 
 double getBetProbability(int numSides, int totalNumDice, Bet bet,
@@ -15,25 +16,28 @@ double getBetProbability(int numSides, int totalNumDice, Bet bet,
   }
 
   double probPerRole =
-      _probOfSuccessfulRole(bet.targetNumber, numSides, wildcards);
-  probability = _calcBinomialCDF(neededForSuccess, numRolls, probPerRole);
+      probOfSuccessfulRole(bet.targetNumber, numSides, wildcards);
+  probability = calcBinomialCDF(neededForSuccess, numRolls, probPerRole);
 
   return probability;
 }
 
-int _binomialCoefficient(int n, int k) {
-  return _factorial(n) ~/ (_factorial(k) * _factorial(n - k));
+@visibleForTesting
+int binomialCoefficient(int n, int k) {
+  return factorial(n) ~/ (factorial(k) * factorial(n - k));
 }
 
-int _factorial(int n) {
+@visibleForTesting
+int factorial(int n) {
   if (n == 0 || n == 1) {
     return 1;
   } else {
-    return n * _factorial(n - 1);
+    return n * factorial(n - 1);
   }
 }
 
-double _calcBinomialCDF(int minForSuccess, int numDice, double probPerRole) {
+@visibleForTesting
+double calcBinomialCDF(int minForSuccess, int numDice, double probPerRole) {
   double probability;
   if (minForSuccess <= 0) {
     probability = 1;
@@ -43,7 +47,7 @@ double _calcBinomialCDF(int minForSuccess, int numDice, double probPerRole) {
     if (numDice > minForSuccess) {
       //Get prob that num rolled is at least the number required.
       for (int rollNum = minForSuccess; rollNum <= numDice; rollNum++) {
-        probability += _calcBinomialPDF(rollNum, numDice, probPerRole);
+        probability += calcBinomialPDF(rollNum, numDice, probPerRole);
       }
     }
   }
@@ -51,9 +55,10 @@ double _calcBinomialCDF(int minForSuccess, int numDice, double probPerRole) {
   return probability;
 }
 
-double _calcBinomialPDF(int numForSuccess, int numDice, double probPerRole) {
+@visibleForTesting
+double calcBinomialPDF(int numForSuccess, int numDice, double probPerRole) {
   double probability = 0;
-  probability += _binomialCoefficient(numDice, numForSuccess) *
+  probability += binomialCoefficient(numDice, numForSuccess) *
       pow(probPerRole, numForSuccess) *
       pow(1 - probPerRole, numDice - numForSuccess);
 
@@ -61,8 +66,8 @@ double _calcBinomialPDF(int numForSuccess, int numDice, double probPerRole) {
 }
 
 ///Get the probability of each die landing on the target side.
-double _probOfSuccessfulRole(
-    int targetRole, int numSides, List<int> wildcards) {
+@visibleForTesting
+double probOfSuccessfulRole(int targetRole, int numSides, List<int> wildcards) {
   int numerator = 0;
   int denominator = numSides;
 
