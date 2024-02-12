@@ -1,5 +1,4 @@
 import 'package:frontend/game/models/dice.dart';
-import 'package:smartlogger/smartlogger.dart';
 
 class Player {
   int id;
@@ -15,16 +14,12 @@ class Player {
   int numDice() => hand.length;
 
   void discardDice(int numDice) {
-    for (var i = 0; i < numDice; i++) {
-      try {
+    try {
+      for (var i = 0; i < numDice; i++) {
         hand.removeLast();
-      } on RangeError {
-        Log.d("Player ID: $id, NAME: $name has an empty hand");
       }
-    }
-    if (hand.isEmpty) {
+    } on RangeError {
       eliminated = true;
-      Log.d("Player ID: $id, NAME: $name has been eliminated");
     }
   }
 
