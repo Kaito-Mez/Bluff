@@ -25,14 +25,15 @@ void main() async {
     test('Should return next players ID', () {
       int expectedNextID = 1;
 
-      expect(client.getNextTurn(getBet()), expectedNextID);
+      expect(client.getNextTurn(getTestBet()), expectedNextID);
     });
 
     test('Should loop back to first player when getting next player', () {
       int currentBetId = 3;
       int expectedNextID = 0;
 
-      expect(client.getNextTurn(getCustomIdBet(currentBetId)), expectedNextID);
+      expect(client.getNextTurn(getTestBet(playerId: currentBetId)),
+          expectedNextID);
     });
   });
 
