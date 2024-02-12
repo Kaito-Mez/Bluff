@@ -1,7 +1,6 @@
 import 'package:data/stats.dart';
 import 'package:flutter/foundation.dart';
 import 'package:frontend/game/models/bet.dart';
-import 'package:smartlogger/smartlogger.dart';
 
 double getBetProbability(int numSides, int totalNumDice, Bet bet,
     List<int> wildcards, List<int> knownRolls) {
