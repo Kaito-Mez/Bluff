@@ -7,20 +7,20 @@ import 'models/ruleset_test_data.dart';
 
 /// Generate a player client with default ruleset
 Client getPlayerClient() {
-  return Client(0, getRuleset(), getClientEventsChannel(),
-      uiEvents: getClientEventsChannel());
+  return Client(0, getTestRuleset(), getTestClientEventsChannel(),
+      uiEvents: getTestClientEventsChannel());
 }
 
 /// Generate an AI client with default ruleset
 Client getAiClient() {
-  return Client(0, getRuleset(), getClientEventsChannel());
+  return Client(0, getTestRuleset(), getTestClientEventsChannel());
 }
 
 /// Generate list of clients with one player and the rest being AI.
 List<Client> getClients(int quantity) {
-  ClientEventsChannel netEvents = getClientEventsChannel();
-  ClientEventsChannel uiEvents = getClientEventsChannel();
-  Ruleset ruleset = getRuleset();
+  ClientEventsChannel netEvents = getTestClientEventsChannel();
+  ClientEventsChannel uiEvents = getTestClientEventsChannel();
+  Ruleset ruleset = getTestRuleset();
   List<Client> clients = List.empty(growable: true);
 
   clients.add(Client(0, ruleset, netEvents, uiEvents: uiEvents));

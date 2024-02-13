@@ -8,14 +8,14 @@ void main() async {
   test('Setting dice should set new dice', () {
     int expectedNumDice = 6;
     List<int> expectedRole = List.of(<int>[-1, -1, -1, -1, -1, -1]);
-    Player player = getPlayer();
+    Player player = getTestPlayer();
 
     expect(player.numDice(), expectedNumDice);
     expect(player.currentRoll, expectedRole);
 
     expectedNumDice = 15;
     expectedRole = List.filled(expectedNumDice, -1);
-    player.setDice(getDice(15));
+    player.setDice(getTestDice(numDice: 15));
 
     expect(player.numDice(), expectedNumDice);
     expect(player.currentRoll, expectedRole);
@@ -23,7 +23,7 @@ void main() async {
 
   test('Rolling dice should set their values', () {
     List<int> expectedInitialRole = List.of(<int>[-1, -1, -1, -1, -1, -1]);
-    Player player = getPlayer();
+    Player player = getTestPlayer();
 
     expect(player.currentRoll, expectedInitialRole);
 
@@ -36,10 +36,10 @@ void main() async {
   group("Modify Hand Size:", () {
     test('Adding dice should increase hand size', () {
       int expectedHandSize = 6;
-      Player player = getPlayer();
+      Player player = getTestPlayer();
       expect(player.numDice(), expectedHandSize);
 
-      player.addDice(2, getDie());
+      player.addDice(2, getTestDie());
       expectedHandSize = 8;
 
       expect(player.numDice(), expectedHandSize);
@@ -47,7 +47,7 @@ void main() async {
 
     test('Discarding dice should decrease hand size', () {
       int expectedHandSize = 6;
-      Player player = getPlayer();
+      Player player = getTestPlayer();
       expect(player.numDice(), expectedHandSize);
 
       player.discardDice(4);
@@ -58,7 +58,7 @@ void main() async {
 
     test('Discarding to zero dice should mark player eliminated', () {
       int expectedHandSize = 6;
-      Player player = getPlayer();
+      Player player = getTestPlayer();
       bool expectedEliminated = false;
 
       expect(player.numDice(), expectedHandSize);
