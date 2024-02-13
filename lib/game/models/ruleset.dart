@@ -1,3 +1,5 @@
+import 'package:smartlogger/smartlogger.dart';
+
 class Ruleset {
   ///Number of dice in play at the beginning of the game
   int numDice;
@@ -45,7 +47,7 @@ class Ruleset {
       this.swapDirection = false,
       this.wildcards = const <int>[6]});
 
-  int getLargestRole() {
+  int getLargestValidRole() {
     int largestRoll = 0;
 
     for (var i = numSides; i > 0; i--) {
@@ -56,5 +58,18 @@ class Ruleset {
       }
     }
     return largestRoll;
+  }
+
+  List<int> getValidBetNumbers() {
+    List<int> validNums = List.empty(growable: true);
+    List<int> possibleNums = List.generate(numSides, (index) => index += 1);
+
+    for (int number in possibleNums) {
+      if (!wildcards.contains(number)) {
+        validNums.add(number);
+      }
+    }
+
+    return validNums;
   }
 }
