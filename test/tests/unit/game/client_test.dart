@@ -69,7 +69,7 @@ void main() async {
 
         expect(actualTotalDice <= totalNumDice, true);
 
-        numPlayers += 1;
+        numPlayers++;
       }
     });
   });

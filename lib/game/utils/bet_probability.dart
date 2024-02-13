@@ -11,7 +11,7 @@ double getBetProbability(int numSides, int totalNumDice, Bet bet,
 
   for (var roll in knownRolls) {
     if (roll == bet.targetNumber || wildcards.contains(roll)) {
-      neededForSuccess -= 1;
+      neededForSuccess--;
     }
   }
 
@@ -52,7 +52,7 @@ double probOfSuccessfulRole(int targetRole, int numSides, List<int> wildcards) {
 
   for (var i = 1; i <= denominator; i++) {
     if (i == targetRole || wildcards.contains(i)) {
-      numerator += 1;
+      numerator++;
     }
   }
 
