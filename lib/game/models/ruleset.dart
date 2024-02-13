@@ -44,4 +44,17 @@ class Ruleset {
       this.randomizeSeats = false,
       this.swapDirection = false,
       this.wildcards = const <int>[6]});
+
+  int getLargestRole() {
+    int largestRoll = 0;
+
+    for (var i = numSides; i > 0; i--) {
+      if (largestRoll == 0) {
+        if (!wildcards.contains(i)) {
+          largestRoll = i;
+        }
+      }
+    }
+    return largestRoll;
+  }
 }
