@@ -47,7 +47,7 @@ class Ruleset {
       this.swapDirection = false,
       this.wildcards = const <int>[6]});
 
-  int getLargestValidRole() {
+  int getLargestValidBetNum() {
     int largestRoll = 0;
 
     for (var i = numSides; i > 0; i--) {
@@ -60,7 +60,20 @@ class Ruleset {
     return largestRoll;
   }
 
-  List<int> getValidBetNumbers() {
+  int getSmallestValidBetNum() {
+    int smallestRoll = 0;
+
+    for (var i = 1; i <= numSides; i++) {
+      if (smallestRoll == 0) {
+        if (!wildcards.contains(i)) {
+          smallestRoll = i;
+        }
+      }
+    }
+    return smallestRoll;
+  }
+
+  List<int> getValidBetNums() {
     List<int> validNums = List.empty(growable: true);
     List<int> possibleNums = List.generate(numSides, (index) => index += 1);
 
