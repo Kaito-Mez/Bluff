@@ -3,7 +3,7 @@ import "package:frontend/game/models/ruleset.dart";
 import "package:frontend/game/network/client_events_channel.dart";
 import 'network/client_events_channel_test_data.dart';
 
-import "ruleset_test_data.dart";
+import 'models/ruleset_test_data.dart';
 
 /// Generate a player client with default ruleset
 Client getPlayerClient() {

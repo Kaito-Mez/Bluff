@@ -3,7 +3,7 @@ import 'package:frontend/game/models/bet.dart';
 import 'package:frontend/game/utils/bet_probability.dart';
 import 'package:frontend/game/utils/double_to_precision.dart';
 
-import '../../../../resources/models/bet_test_data.dart';
+import '../../../../resources/game/models/bet_test_data.dart';
 
 void main() async {
   group('getBetProbability() Tests:', () {
