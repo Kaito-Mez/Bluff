@@ -1,4 +1,6 @@
-class Bet {
+import 'dart:collection';
+
+class Bet extends LinkedListEntry<Bet> {
   int targetNumber;
   int betQuantity;
 
