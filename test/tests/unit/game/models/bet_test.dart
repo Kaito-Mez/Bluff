@@ -1,9 +1,11 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:frontend/game/models/bet.dart';
 
+import '../../../../resources/game/models/bet_test_data.dart';
+
 void main() async {
   test('Placing a bet should reflect data correctly', () {
-    Bet bet = Bet();
+    Bet bet = getTestBet();
 
     int betQuant = 1;
     int betNumber = 2;
@@ -19,7 +21,7 @@ void main() async {
     int betNumber = 2;
     List<int> wildcard = [6];
     List<int> diceRoll = <int>[1, 2, 2, 3, 4, 5, 6, 6];
-    Bet bet = Bet();
+    Bet bet = getTestBet();
 
     test('Bet should be under (Caller loses)', () {
       // GIVEN:

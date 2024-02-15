@@ -8,7 +8,7 @@ class Bet {
   late double probability;
 
   /// Object representing the current bet.
-  Bet({this.playerId = -1, this.targetNumber = -1, this.betQuantity = -1});
+  Bet(this.playerId, this.targetNumber, this.betQuantity);
 
   /// Set the current bet
   void placeBet(int playerId, int targetNumber, int betQuantity) {
