@@ -5,7 +5,6 @@ import 'package:frontend/game/models/ruleset.dart';
 import 'package:frontend/game/models/events/bet_event.dart';
 import 'package:frontend/game/models/events/call_event.dart';
 import 'package:frontend/game/models/events/reveal_event.dart';
-import 'package:frontend/game/models/events/roll_event.dart';
 import 'package:frontend/game/models/events/turn_event.dart';
 import 'package:frontend/game/network/client_events_channel.dart';
 import 'package:smartlogger/smartlogger.dart';

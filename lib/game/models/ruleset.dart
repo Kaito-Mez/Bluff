@@ -1,5 +1,3 @@
-import 'package:smartlogger/smartlogger.dart';
-
 class Ruleset {
   ///Number of dice in play at the beginning of the game
   int numDice;

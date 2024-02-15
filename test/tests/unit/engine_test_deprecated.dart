@@ -1,11 +1,11 @@
-import 'package:flutter_test/flutter_test.dart';
+/*import 'package:flutter_test/flutter_test.dart';
 import 'package:frontend/game/client.dart';
 import 'package:frontend/game/models/bet.dart';
 import 'package:frontend/game/models/dice.dart';
 import 'package:frontend/game/network/client_events_channel.dart';
 import 'package:frontend/game/models/player.dart';
 import 'package:frontend/game/models/ruleset.dart';
-/*
+
 void main() async {
   test('Client Unit Test', () {
     List<String> playerNames = ["Joe", "Joseph", "Josephine", "Josephanie"];
