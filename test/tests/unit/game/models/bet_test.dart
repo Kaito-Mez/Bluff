@@ -9,7 +9,7 @@ void main() async {
 
     int betQuant = 1;
     int betNumber = 2;
-    bet.placeBet(0, betNumber, betQuant);
+    bet.placeBet(0, betQuant, betNumber);
 
     expect(bet.playerId, 0);
     expect(bet.betQuantity, betQuant);
@@ -28,7 +28,7 @@ void main() async {
       int betQuant = 1;
 
       // WHEN:
-      bet.placeBet(0, betNumber, betQuant);
+      bet.placeBet(0, betQuant, betNumber);
 
       // THEN:
       expect(bet.verifyBet(wildcard, diceRoll), 3);
@@ -39,7 +39,7 @@ void main() async {
       int betQuant = 5;
 
       // WHEN:
-      bet.placeBet(0, betNumber, betQuant);
+      bet.placeBet(0, betQuant, betNumber);
 
       // THEN:
       expect(bet.verifyBet(wildcard, diceRoll), -1);
@@ -50,7 +50,7 @@ void main() async {
       int betQuant = 4;
 
       // WHEN:
-      bet.placeBet(0, betNumber, betQuant);
+      bet.placeBet(0, betQuant, betNumber);
 
       // THEN:
       expect(bet.verifyBet(wildcard, diceRoll), 0);

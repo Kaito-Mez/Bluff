@@ -10,10 +10,10 @@ class Bet extends LinkedListEntry<Bet> {
   late double probability;
 
   /// Object representing the current bet.
-  Bet(this.playerId, this.targetNumber, this.betQuantity);
+  Bet(this.playerId, this.betQuantity, this.targetNumber);
 
   /// Set the current bet
-  void placeBet(int playerId, int targetNumber, int betQuantity) {
+  void placeBet(int playerId, int betQuantity, int targetNumber) {
     this.playerId = playerId;
     this.targetNumber = targetNumber;
     this.betQuantity = betQuantity;
