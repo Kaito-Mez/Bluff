@@ -7,7 +7,7 @@ class AiEngine {
   double difficulty;
   double erraticness;
 
-  AiEngine(this.ruleset, this.difficulty, this.erraticness) {}
+  AiEngine(this.ruleset, this.difficulty, this.erraticness);
 
   bool callBluff() {
     bool callBluff = false;
@@ -19,12 +19,5 @@ class AiEngine {
     /// all bets below some probability threshold based on difficulty then select
     /// an option based on erraticness.
     return lastBet;
-  }
-
-  List<Bet> getPossibleRaises() {
-    List<Bet> possibilites = List.empty(growable: true);
-    
-
-    return possibilites;
   }
 }
