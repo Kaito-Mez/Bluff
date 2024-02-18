@@ -2,7 +2,7 @@ import "package:frontend/game/models/ruleset.dart";
 
 /// Generates default ruleset with  30 and sides per dice 6.
 Ruleset getTestRuleset(
-    {int numDice = 30,
+    {int totalNumDice = 30,
     int numSides = 6,
     int turnTime = -1,
     bool challenges = false,
@@ -14,7 +14,7 @@ Ruleset getTestRuleset(
     bool swapDirection = false,
     List<int> wildcards = const <int>[6]}) {
   return Ruleset(
-      numDice: numDice,
+      totalNumDice: totalNumDice,
       numSides: numSides,
       turnTime: turnTime,
       challenges: challenges,

@@ -39,7 +39,7 @@ class Client {
   ///Setup all player objects.
   void setupGame(List<String> playerNames) {
     int numPlayers = playerNames.length;
-    int numDice = getNumDicePerPlayer(ruleset.numDice, numPlayers);
+    int numDice = getNumDicePerPlayer(ruleset.totalNumDice, numPlayers);
     int numSides = ruleset.numSides;
 
     players = List.generate(
