@@ -1,6 +1,10 @@
+import 'dart:collection';
+
+import 'package:frontend/game/models/bet.dart';
+
 class Ruleset {
   ///Number of dice in play at the beginning of the game
-  int numDice;
+  int totalNumDice;
 
   ///Number of sides each dice has
   int numSides;
@@ -33,7 +37,7 @@ class Ruleset {
   List<int> wildcards;
 
   Ruleset(
-      {this.numDice = 30,
+      {this.totalNumDice = 30,
       this.numSides = 6,
       this.turnTime = -1,
       this.challenges = false,
@@ -82,5 +86,25 @@ class Ruleset {
     }
 
     return validNums;
+  }
+
+  LinkedList<Bet> getValidRaises(int playerId, Bet bet) {
+    LinkedList<Bet> raises = LinkedList();
+    List<int> validBetNums = getValidBetNums();
+
+    for (var betQuantity = bet.betQuantity;
+        betQuantity <= totalNumDice;
+        betQuantity++) {
+      for (var targetNumber in validBetNums) {
+        if (betQuantity == bet.betQuantity) {
+          if (targetNumber > bet.targetNumber) {
+            raises.add(Bet(playerId, betQuantity, targetNumber));
+          }
+        } else {
+          raises.add(Bet(playerId, betQuantity, targetNumber));
+        }
+      }
+    }
+    return raises;
   }
 }
